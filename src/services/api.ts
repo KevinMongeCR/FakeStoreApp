@@ -12,5 +12,9 @@ export const loginUser = async (username: string, password: string) => {
 
   return response.data;
 };
+export const getProducts = async () => {
+  const response = await api.get('/products');
+  return response.data;
+};
 
 export default api;
