@@ -1,10 +1,16 @@
-import React from 'react';
+
 import { View, Text, Image, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { Button } from 'react-native';
+import React, { useContext, useState} from 'react';
+import { CartContext } from '../context/CartContext';
+
 
 const ProductDetail = () => {
   const route = useRoute<any>();
   const { product } = route.params;
+  const { addToCart } = useContext(CartContext);
+  const [added, setAdded] = useState(false);
 
   return (
     <ScrollView contentContainerStyle={{ padding: 20 }}>
@@ -30,6 +36,15 @@ const ProductDetail = () => {
       <Text>
         Rating: {product.rating?.rate} ({product.rating?.count} reviews)
       </Text>
+
+      <Button
+  title={added ? 'Added ✅' : 'Add to Cart'}
+  onPress={() => {
+    addToCart(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1000);
+  }}
+/>
     </ScrollView>
   );
 };
