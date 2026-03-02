@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { loginUser } from '../services/api';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    console.log('Username:', username);
-    console.log('Password:', password);
+  const handleLogin = async () => {
+    try {
+      const data = await loginUser(username, password);
+      console.log('Login success:', data);
+      Alert.alert('Success', 'Login successful');
+    } catch (error) {
+      console.log('Login error:', error);
+      Alert.alert('Error', 'Invalid username or password');
+    }
   };
 
   return (
